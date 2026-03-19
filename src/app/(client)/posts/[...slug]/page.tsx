@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       title: meta.title,
       description: meta.excerpt,
       ...(get(meta, "coverImage.url") && {
-        images: [{ url: get(meta, "coverImage.url"), alt: get(meta, "coverImage.alt") }],
+        images: [{ url: `${process.env.NEXT_PUBLIC_APP_URL}${get(meta, "coverImage.url")}`, alt: get(meta, "coverImage.alt") }],
       }),
     },
   };
@@ -60,7 +60,7 @@ export default async function Page({ params }: { params: Params }) {
     description: meta.excerpt,
     url: `${baseUrl}/posts/${slugPath}`,
     ...(get(meta, "coverImage.url") && {
-      image: get(meta, "coverImage.url"),
+      image: `${baseUrl}${get(meta, "coverImage.url")}`,
     }),
     ...(meta.createdAt && { datePublished: meta.createdAt }),
     ...(meta.author && {
@@ -74,7 +74,7 @@ export default async function Page({ params }: { params: Params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="w-3xl mx-auto px-6 py-12">
+      <div className="max-w-full w-3xl mx-auto px-4 py-12">
       {get(meta, "coverImage.url") && (
         <figure className="mb-8">
           <div className="relative w-full aspect-video rounded-2xl overflow-hidden">
