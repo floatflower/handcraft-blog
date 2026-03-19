@@ -28,6 +28,9 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       ...(get(meta, "coverImage.url") && {
         images: [{ url: `${process.env.NEXT_PUBLIC_APP_URL}${get(meta, "coverImage.url")}`, alt: get(meta, "coverImage.alt") }],
       }),
+      siteName: "Handcraft",
+      type: "article",
+      url: `${process.env.NEXT_PUBLIC_APP_URL}/posts/${slugPath}`,
     },
   };
 }
