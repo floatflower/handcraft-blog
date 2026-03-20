@@ -167,7 +167,7 @@ export default async function Page({ params }: { params: Params }) {
             </article>
           </div>
           <aside className="w-56 shrink-0 hidden xl:block">
-            <div className="sticky top-8">
+            <div className="sticky top-[calc(3.5rem+2rem)]">
               <TableOfContents headings={headings} />
             </div>
           </aside>
