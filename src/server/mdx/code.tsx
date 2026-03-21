@@ -41,7 +41,7 @@ hljs.registerLanguage("pgsql", pgsql);
 import dockerfile from "highlight.js/lib/languages/dockerfile";
 hljs.registerLanguage("dockerfile", dockerfile);
 
-export function Code ({ children, ...props }: { children: ReactNode }) {
+export function Code({ children, ...props }: { children: ReactNode }) {
   const { className } = props as any;
   const language = className?.replace("language-", "") || "js";
   const highlightedCode = hljs.highlight(children as string, {

@@ -33,7 +33,10 @@ export function Gallery({ images }: { images: GalleryImage[] }) {
         {images.map((img, i) => (
           <button
             key={i}
-            onClick={() => { setIndex(i); setOpen(true); }}
+            onClick={() => {
+              setIndex(i);
+              setOpen(true);
+            }}
             className="aspect-square overflow-hidden rounded-lg cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <img

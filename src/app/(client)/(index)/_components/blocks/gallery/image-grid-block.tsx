@@ -11,7 +11,10 @@ export function ImageGridBlock({ images }: ImageGridBlockProps) {
   return (
     <section
       className="h-[calc(100vh-3.5rem)] snap-start shrink-0 overflow-hidden"
-      style={{ display: "grid", gridTemplateColumns: `repeat(${images.length}, 1fr)` }}
+      style={{
+        display: "grid",
+        gridTemplateColumns: `repeat(${images.length}, 1fr)`,
+      }}
     >
       {images.map((img, i) => (
         <div key={i} className="relative overflow-hidden group">

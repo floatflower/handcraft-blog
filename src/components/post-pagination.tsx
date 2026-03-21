@@ -14,7 +14,11 @@ interface PostPaginationProps {
   buildHref: (page: number) => string;
 }
 
-export function PostPagination({ currentPage, totalPages, buildHref }: PostPaginationProps) {
+export function PostPagination({
+  currentPage,
+  totalPages,
+  buildHref,
+}: PostPaginationProps) {
   if (totalPages <= 1) return null;
 
   return (
@@ -22,7 +26,10 @@ export function PostPagination({ currentPage, totalPages, buildHref }: PostPagin
       <PaginationContent>
         {currentPage > 1 && (
           <PaginationItem>
-            <PaginationPrevious href={buildHref(currentPage - 1)} text="上一頁" />
+            <PaginationPrevious
+              href={buildHref(currentPage - 1)}
+              text="上一頁"
+            />
           </PaginationItem>
         )}
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((p) => {

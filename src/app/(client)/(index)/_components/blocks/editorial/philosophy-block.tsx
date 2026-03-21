@@ -30,26 +30,36 @@ export function PhilosophyBlock({
         <div className="absolute inset-0 bg-black/20" />
         {imageLabel && (
           <div className="absolute bottom-8 left-8 text-white/60">
-            <p className="text-[10px] tracking-[0.3em] uppercase">{imageLabel}</p>
+            <p className="text-[10px] tracking-[0.3em] uppercase">
+              {imageLabel}
+            </p>
           </div>
         )}
       </div>
 
       <div className="flex flex-col justify-center px-8 sm:px-14 py-12 overflow-hidden">
         {label && (
-          <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-2">{label}</p>
+          <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-2">
+            {label}
+          </p>
         )}
-        <h2 className="text-3xl sm:text-4xl font-black tracking-tight mb-10">{title}</h2>
+        <h2 className="text-3xl sm:text-4xl font-black tracking-tight mb-10">
+          {title}
+        </h2>
         <div className="flex flex-col divide-y divide-border">
           {items.map(({ num, title: itemTitle, desc }) => (
             <div
               key={num}
               className="py-6 flex gap-6 items-start hover:translate-x-2 transition-transform duration-300 cursor-default"
             >
-              <span className="font-mono text-xs text-muted-foreground mt-1 shrink-0">{num}</span>
+              <span className="font-mono text-xs text-muted-foreground mt-1 shrink-0">
+                {num}
+              </span>
               <div>
                 <h3 className="text-xl font-black mb-1.5">{itemTitle}</h3>
-                <p className="text-sm text-muted-foreground leading-relaxed">{desc}</p>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  {desc}
+                </p>
               </div>
             </div>
           ))}

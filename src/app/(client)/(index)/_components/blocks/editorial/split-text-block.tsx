@@ -27,7 +27,9 @@ export function SplitTextBlock({
       <div className="hidden sm:flex flex-col justify-between px-10 py-12 border-r border-border">
         <div>
           {eyebrow && (
-            <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-6">{eyebrow}</p>
+            <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-6">
+              {eyebrow}
+            </p>
           )}
         </div>
         {sectionNumber && (
@@ -43,14 +45,20 @@ export function SplitTextBlock({
       {/* Right: content column */}
       <div className="flex flex-col justify-center px-8 sm:px-14 py-12">
         {eyebrow && (
-          <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4 sm:hidden">{eyebrow}</p>
+          <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-4 sm:hidden">
+            {eyebrow}
+          </p>
         )}
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tighter leading-tight mb-8 max-w-xl">
           {title}
         </h2>
-        <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-lg">{body}</p>
+        <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-lg">
+          {body}
+        </p>
         {footnote && (
-          <p className="mt-4 text-xs text-muted-foreground/60 max-w-md leading-relaxed">{footnote}</p>
+          <p className="mt-4 text-xs text-muted-foreground/60 max-w-md leading-relaxed">
+            {footnote}
+          </p>
         )}
         {linkHref && (
           <Link
@@ -58,7 +66,9 @@ export function SplitTextBlock({
             className="group inline-flex items-center gap-3 mt-10 text-xs tracking-[0.2em] uppercase border-b border-foreground/30 pb-1 w-fit hover:border-foreground transition-colors duration-300"
           >
             <span>{linkText}</span>
-            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+            <span className="transition-transform duration-300 group-hover:translate-x-1">
+              →
+            </span>
           </Link>
         )}
       </div>

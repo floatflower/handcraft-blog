@@ -28,7 +28,10 @@ function nodeToText(node: any): string {
 function rehypeAddHeadingIds() {
   return (tree: any) => {
     const visit = (node: any) => {
-      if (node.type === "element" && ["h1", "h2", "h3"].includes(node.tagName)) {
+      if (
+        node.type === "element" &&
+        ["h1", "h2", "h3"].includes(node.tagName)
+      ) {
         const text = nodeToText(node);
         node.properties ??= {};
         node.properties.id = slugify(text);
@@ -51,7 +54,11 @@ function extractHeadings(markdown: string): Heading[] {
   return headings;
 }
 
-export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+export async function generateMetadata({
+  params,
+}: {
+  params: Params;
+}): Promise<Metadata> {
   const { slug } = await params;
   const slugPath = slug.join("/");
 
@@ -67,7 +74,12 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
       title: meta.title,
       description: meta.excerpt,
       ...(get(meta, "coverImage.url") && {
-        images: [{ url: `${process.env.NEXT_PUBLIC_APP_URL}${get(meta, "coverImage.url")}`, alt: get(meta, "coverImage.alt") }],
+        images: [
+          {
+            url: `${process.env.NEXT_PUBLIC_APP_URL}${get(meta, "coverImage.url")}`,
+            alt: get(meta, "coverImage.alt"),
+          },
+        ],
       }),
       siteName: "Handcraft",
       type: "article",
@@ -143,19 +155,27 @@ export default async function Page({ params }: { params: Params }) {
             )}
             <article>
               {meta.title && (
-                <h1 className="text-4xl font-bold tracking-tight mb-2">{meta.title}</h1>
+                <h1 className="text-4xl font-bold tracking-tight mb-2">
+                  {meta.title}
+                </h1>
               )}
               {Array.isArray(meta.tags) && meta.tags.length > 0 && (
                 <div className="flex flex-wrap gap-2 mb-3">
                   {meta.tags.map((tag: string) => (
-                    <a key={tag} href={`/tags/${tag}/1`} className="select-none px-2 py-0.5 rounded-full bg-muted text-muted-foreground text-xs font-medium hover:bg-muted/70 transition-colors">
+                    <a
+                      key={tag}
+                      href={`/tags/${tag}/1`}
+                      className="select-none px-2 py-0.5 rounded-full bg-muted text-muted-foreground text-xs font-medium hover:bg-muted/70 transition-colors"
+                    >
                       {tag}
                     </a>
                   ))}
                 </div>
               )}
               {meta.excerpt && (
-                <p className="text-muted-foreground text-lg mb-2">{meta.excerpt}</p>
+                <p className="text-muted-foreground text-lg mb-2">
+                  {meta.excerpt}
+                </p>
               )}
               {meta.createdAt && (
                 <p className="text-sm text-muted-foreground mb-8">

@@ -20,7 +20,7 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
           }
         }
       },
-      { rootMargin: "0% 0% -80% 0%", threshold: 0 }
+      { rootMargin: "0% 0% -80% 0%", threshold: 0 },
     );
 
     headings.forEach(({ id }) => {
@@ -48,7 +48,9 @@ export function TableOfContents({ headings }: { headings: Heading[] }) {
               }`}
               onClick={(e) => {
                 e.preventDefault();
-                document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+                document
+                  .getElementById(id)
+                  ?.scrollIntoView({ behavior: "smooth" });
               }}
             >
               {text}

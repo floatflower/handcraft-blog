@@ -28,9 +28,13 @@ export function TimelineBlock({
         <div className="flex items-end justify-between mb-10">
           <div>
             {label && (
-              <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-2">{label}</p>
+              <p className="text-xs tracking-[0.3em] uppercase text-muted-foreground mb-2">
+                {label}
+              </p>
             )}
-            <h2 className="text-3xl sm:text-4xl font-black tracking-tight">{title}</h2>
+            <h2 className="text-3xl sm:text-4xl font-black tracking-tight">
+              {title}
+            </h2>
           </div>
           {viewAllHref && (
             <Link

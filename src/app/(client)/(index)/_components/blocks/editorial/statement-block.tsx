@@ -1,3 +1,11 @@
+import Link from "next/link";
+
+interface BlockNav {
+  logo?: string;
+  logoHref?: string;
+  links?: { label: string; href: string }[];
+}
+
 interface StatementBlockProps {
   label?: string;
   /** Main statement text. Use \n for line breaks. */
@@ -6,6 +14,7 @@ interface StatementBlockProps {
   align?: "left" | "center";
   /** "dark" renders an inverted (black bg, white text) section for contrast */
   variant?: "light" | "dark";
+  nav?: BlockNav;
 }
 
 export function StatementBlock({
@@ -14,6 +23,7 @@ export function StatementBlock({
   footnote,
   align = "left",
   variant = "light",
+  nav,
 }: StatementBlockProps) {
   const isDark = variant === "dark";
   const lines = statement.split("\n");
@@ -23,14 +33,58 @@ export function StatementBlock({
       className={[
         "h-[calc(100vh-3.5rem)] snap-start shrink-0 flex flex-col justify-center px-8 sm:px-16 lg:px-24 relative overflow-hidden",
         align === "center" && "items-center text-center",
-        isDark ? "bg-foreground text-background" : "bg-background text-foreground",
+        isDark
+          ? "bg-foreground text-background"
+          : "bg-background text-foreground",
       ]
         .filter(Boolean)
         .join(" ")}
     >
+      {/* Navbar */}
+      {nav && (
+        <nav
+          className={[
+            "absolute top-0 left-0 right-0 z-20 h-14 flex items-center px-6 sm:px-10 border-b",
+            isDark
+              ? "bg-transparent border-white/10"
+              : "bg-transparent border-black/5",
+          ].join(" ")}
+        >
+          <Link
+            href={nav.logoHref ?? "/"}
+            className={[
+              "font-semibold text-sm hover:opacity-70 transition-opacity",
+              isDark ? "text-background" : "text-foreground",
+            ].join(" ")}
+          >
+            {nav.logo ?? "Handcraft"}
+          </Link>
+          {nav.links && nav.links.length > 0 && (
+            <div className="ml-auto flex items-center gap-8">
+              {nav.links.map((l) => (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  className={[
+                    "text-[10px] tracking-[0.2em] uppercase transition-colors",
+                    isDark
+                      ? "text-background/50 hover:text-background"
+                      : "text-muted-foreground hover:text-foreground",
+                  ].join(" ")}
+                >
+                  {l.label}
+                </Link>
+              ))}
+            </div>
+          )}
+        </nav>
+      )}
+
       {/* Decorative quotation mark */}
       <div className="pointer-events-none absolute inset-0 flex items-end justify-end opacity-[0.04] pr-8 pb-4 select-none">
-        <span className={`text-[25vw] font-black leading-none ${isDark ? "text-background" : "text-foreground"}`}>
+        <span
+          className={`text-[25vw] font-black leading-none ${isDark ? "text-background" : "text-foreground"}`}
+        >
           "
         </span>
       </div>
