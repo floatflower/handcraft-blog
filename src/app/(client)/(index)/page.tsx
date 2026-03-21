@@ -167,7 +167,7 @@ export default async function Home() {
         <VideoHeroBlock
           src="/videos/demo.mp4"
           eyebrow="Handcraft"
-          title={"文字，是最\n慢的藝術。"}
+          title={`文字，是最慢的\n藝術。`}
           subtitle="在這個快速消費的時代，我們選擇放慢腳步，用文字記錄真實的生活。"
           ctaText="開始閱讀"
           ctaHref="/posts"

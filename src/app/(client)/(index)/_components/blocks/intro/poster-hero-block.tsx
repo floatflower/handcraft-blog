@@ -66,9 +66,11 @@ export function PosterHeroBlock({
   const titleStyle: React.CSSProperties = {
     fontSize: "clamp(4.5rem, 17vw, 20rem)",
     color: "#ffffff",
+    fontFamily: "var(--font-display)",
+    fontWeight: 900,
+    fontStyle: "italic",
   };
-  const titleClass =
-    "font-black tracking-tighter leading-[0.82] whitespace-nowrap";
+  const titleClass = "tracking-tight leading-[0.82] whitespace-nowrap";
   return (
     <section
       ref={sectionRef}

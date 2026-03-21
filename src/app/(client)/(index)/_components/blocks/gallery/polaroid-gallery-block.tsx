@@ -1,3 +1,7 @@
+"use client";
+
+import { useState } from "react";
+
 interface PolaroidItem {
   src: string;
   alt?: string;
@@ -32,6 +36,7 @@ export function PolaroidGalleryBlock({
   label,
 }: PolaroidGalleryBlockProps) {
   const items = images.slice(0, 5);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
     <section className="h-[calc(100vh-3.5rem)] snap-start shrink-0 flex flex-col items-center justify-center overflow-hidden bg-background relative select-none">
@@ -44,17 +49,19 @@ export function PolaroidGalleryBlock({
       <div className="relative flex items-center justify-center w-full h-full">
         {items.map((item, i) => {
           const slot = SLOTS[i % SLOTS.length];
+          const isActive = activeIndex === i;
           return (
             <div
               key={i}
+              onClick={() => setActiveIndex(isActive ? null : i)}
               className={[
-                "absolute",
+                "absolute cursor-pointer",
                 "bg-white shadow-xl",
                 "p-3 pb-10",
                 "w-44 sm:w-56",
-                slot.rotate,
-                slot.translate,
-                slot.z,
+                isActive
+                  ? "rotate-0 translate-x-0 translate-y-0 scale-110 z-50 shadow-2xl"
+                  : [slot.rotate, slot.translate, slot.z].join(" "),
                 "transition-all duration-500 ease-out",
                 "hover:rotate-0 hover:translate-x-0 hover:translate-y-0 hover:scale-110 hover:z-50 hover:shadow-2xl",
               ].join(" ")}

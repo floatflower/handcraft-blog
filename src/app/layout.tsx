@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Geist_Mono, Noto_Serif_TC } from "next/font/google";
+import { Geist_Mono, Noto_Serif_TC, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +12,13 @@ const notoSerifTC = Noto_Serif_TC({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  weight: ["400", "700", "900"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
 });
 
 export const viewport: Viewport = {
@@ -37,6 +44,7 @@ export default function RootLayout({
         "font-sans",
         notoSerifTC.variable,
         geistMono.variable,
+        playfairDisplay.variable,
       )}
     >
       <body className="min-h-full flex flex-col">{children}</body>

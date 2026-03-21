@@ -46,7 +46,7 @@ export function VideoHeroBlock({
           </p>
         )}
 
-        <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-[0.88] text-white">
+        <h1 className="text-5xl sm:text-7xl md:text-8xl font-black tracking-tighter leading-[1.05] text-white whitespace-pre-line">
           {title}
         </h1>
 

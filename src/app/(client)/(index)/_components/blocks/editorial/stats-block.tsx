@@ -73,7 +73,7 @@ export function StatsBlock({
             <div
               key={label}
               className={[
-                "py-8 sm:py-0 sm:px-10 first:sm:pl-0 flex flex-col gap-3 sm:border-r last:border-r-0",
+                "py-8 sm:py-0 sm:px-10 odd:sm:pl-0 lg:pl-10 first:lg:pl-0 flex flex-col gap-3 sm:border-r last:border-r-0",
                 isDark ? "border-white/10" : "border-border",
               ].join(" ")}
             >
