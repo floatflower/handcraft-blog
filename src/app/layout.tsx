@@ -1,13 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Figtree } from "next/font/google";
+import { Geist_Mono, Noto_Serif_TC } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 
-const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const notoSerifTC = Noto_Serif_TC({
   subsets: ["latin"],
+  weight: ["400", "500", "700", "900"],
+  variable: "--font-sans",
 });
 
 const geistMono = Geist_Mono({
@@ -35,10 +34,9 @@ export default function RootLayout({
       className={cn(
         "h-full",
         "antialiased",
-        geistSans.variable,
-        geistMono.variable,
         "font-sans",
-        figtree.variable,
+        notoSerifTC.variable,
+        geistMono.variable,
       )}
     >
       <body className="min-h-full flex flex-col">{children}</body>

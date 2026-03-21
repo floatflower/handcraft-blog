@@ -35,17 +35,28 @@ export function BentoGalleryBlock({ images, label }: BentoGalleryBlockProps) {
 
   return (
     <section className="h-[calc(100vh-3.5rem)] snap-start shrink-0 overflow-hidden p-3 bg-background">
-      <div
-        className="h-full grid gap-2"
-        style={{
-          gridTemplateColumns: "2fr 1fr 1fr",
-          gridTemplateRows: "1fr 1fr",
-          gridTemplateAreas: `
-            "a a b"
-            "c d d"
-          `,
-        }}
-      >
+      <style>{`
+        .bento-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: 1fr 1fr;
+          gap: 0.5rem;
+        }
+        @media (min-width: 768px) {
+          .bento-grid {
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            grid-template-areas:
+              "a a b"
+              "c d d";
+          }
+          .bento-cell-a { grid-area: a; }
+          .bento-cell-b { grid-area: b; }
+          .bento-cell-c { grid-area: c; }
+          .bento-cell-d { grid-area: d; }
+        }
+      `}</style>
+      <div className="bento-grid h-full">
         {/* 1 — wide top-left */}
         <BentoCell image={img1} area="a" />
         {/* 2 — top-right */}
@@ -62,8 +73,7 @@ export function BentoGalleryBlock({ images, label }: BentoGalleryBlockProps) {
 function BentoCell({ image, area }: { image: BentoGalleryItem; area: string }) {
   return (
     <div
-      className="relative overflow-hidden rounded-xl group"
-      style={{ gridArea: area }}
+      className={`bento-cell-${area} relative overflow-hidden rounded-xl group`}
     >
       <img
         src={image.src}

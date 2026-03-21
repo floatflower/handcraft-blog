@@ -1,6 +1,9 @@
 import dayjs from "dayjs";
 import { postLoader } from "@/server/post-loader";
 import { HeroBlock } from "./_components/blocks/intro/hero-block";
+import { PosterHeroBlock } from "./_components/blocks/intro/poster-hero-block";
+import { SplitHeroBlock } from "./_components/blocks/intro/split-hero-block";
+import { FullbleedHeroBlock } from "./_components/blocks/intro/fullbleed-hero-block";
 import { ImageGridBlock } from "./_components/blocks/gallery/image-grid-block";
 import { ImageReelBlock } from "./_components/blocks/gallery/image-reel-block";
 import { MosaicGalleryBlock } from "./_components/blocks/gallery/mosaic-gallery-block";
@@ -9,8 +12,18 @@ import { FocusGalleryBlock } from "./_components/blocks/gallery/focus-gallery-bl
 import { PolaroidGalleryBlock } from "./_components/blocks/gallery/polaroid-gallery-block";
 import { StatementBlock } from "./_components/blocks/editorial/statement-block";
 import { PhilosophyBlock } from "./_components/blocks/editorial/philosophy-block";
+import { SplitTextBlock } from "./_components/blocks/editorial/split-text-block";
+import { PullQuoteBlock } from "./_components/blocks/editorial/pull-quote-block";
+import { StatsBlock } from "./_components/blocks/editorial/stats-block";
+import { ManifestoBlock } from "./_components/blocks/editorial/manifesto-block";
+import { VideoHeroBlock } from "./_components/blocks/theater/video-hero-block";
+import { VideoSpotlightBlock } from "./_components/blocks/theater/video-spotlight-block";
+import { VideoEditorialBlock } from "./_components/blocks/theater/video-editorial-block";
 import { TimelineBlock } from "./_components/blocks/archive/timeline-block";
 import { FeaturePostBlock } from "./_components/blocks/showcase/feature-post-block";
+import { CardGridShowcaseBlock } from "./_components/blocks/showcase/card-grid-showcase-block";
+import { MagazineShowcaseBlock } from "./_components/blocks/showcase/magazine-showcase-block";
+import { MinimalListShowcaseBlock } from "./_components/blocks/showcase/minimal-list-showcase-block";
 import { CtaBlock } from "./_components/blocks/cta/cta-block";
 
 const REEL_IMAGES = [
@@ -30,6 +43,20 @@ export default async function Home() {
   );
 
   const featuredPost = allPosts[0];
+  const showcaseItems = allPosts.slice(0, 6).map((p) => ({
+    title: p.metadata.title ?? p.slug,
+    excerpt: p.metadata.excerpt as string | undefined,
+    date: p.metadata.createdAt
+      ? dayjs(p.metadata.createdAt).format("MMM D, YYYY")
+      : undefined,
+    href: `/posts/${p.slug}`,
+    image:
+      (p.metadata.coverImage as { url?: string } | undefined)?.url ??
+      "/posts/hello-world/images/image2.jpg",
+    tags: Array.isArray(p.metadata.tags)
+      ? (p.metadata.tags as string[]).slice(0, 2)
+      : undefined,
+  }));
   const timelineItems = allPosts.slice(0, 6).map((p) => ({
     date: dayjs(p.metadata.createdAt).format("MMM YYYY"),
     title: p.metadata.title ?? p.slug,
@@ -73,6 +100,19 @@ export default async function Home() {
           caption="Gallery"
         />
 
+        <SplitHeroBlock
+          eyebrow="Handcraft Studio"
+          title={"慢工，\n出細活。"}
+          subtitle="不追流量，只追求值得反覆閱讀的文字。每一篇都花時間沉澱。"
+          image="/images/home/image-2.jpg"
+          ctaText="閱讀文章"
+          ctaHref="/posts"
+          secondaryCtaText="關於這裡"
+          secondaryCtaHref="/about"
+          tags={["文字", "創作", "生活", "思考"]}
+          imageSide="right"
+        />
+
         <BentoGalleryBlock
           label="Collection"
           images={[
@@ -82,6 +122,24 @@ export default async function Home() {
             { src: "/posts/hello-world/cover.jpg" },
             { src: "/images/home/image-3.jpg" },
           ]}
+        />
+
+        <FullbleedHeroBlock
+          title={"用文字\n丈量生活。"}
+          eyebrow="Handcraft"
+          image="/images/home/image-3.jpg"
+          overlayOpacity={55}
+          metaValue="2024"
+          metaLabel="創立至今"
+          ctaText="開始探索"
+          ctaHref="/posts"
+          nav={{
+            logo: "Handcraft",
+            links: [
+              { label: "文章", href: "/posts" },
+              { label: "關於", href: "/about" },
+            ],
+          }}
         />
 
         <FocusGalleryBlock
@@ -104,6 +162,35 @@ export default async function Home() {
             { src: "/posts/hello-world/images/image1.jpg", caption: "光與影" },
             { src: "/images/home/image-3.jpg", caption: "靜物" },
           ]}
+        />
+
+        <VideoHeroBlock
+          src="/videos/demo.mp4"
+          eyebrow="Handcraft"
+          title={"文字，是最\n慢的藝術。"}
+          subtitle="在這個快速消費的時代，我們選擇放慢腳步，用文字記錄真實的生活。"
+          ctaText="開始閱讀"
+          ctaHref="/posts"
+          overlayOpacity={55}
+        />
+
+        <VideoEditorialBlock
+          src="/videos/demo.mp4"
+          eyebrow="Behind the Craft"
+          title={"每一篇文字\n背後的故事"}
+          body="寫作不只是輸出想法，更是一種與自己對話的過程。每一篇文章都需要時間沉澱，才能讓文字真正有重量。"
+          footnote="Handcraft 相信慢即是快，深即是廣。"
+          ctaText="了解更多"
+          ctaHref="/about"
+          videoSide="right"
+        />
+
+        <VideoSpotlightBlock
+          src="/videos/demo.mp4"
+          backgroundImage="/images/home/image-1.jpg"
+          label="Demo"
+          caption="Handcraft — 手工文字的誕生"
+          overlayOpacity={50}
         />
 
         <ImageReelBlock
@@ -134,6 +221,15 @@ export default async function Home() {
           reelDuration={48}
         />
 
+        <PullQuoteBlock
+          quote="好的文字不需要大聲，它只需要真實。"
+          author="Handcraft"
+          role="創作理念"
+          image="/images/home/image-3.jpg"
+          overlay="dark"
+          align="center"
+        />
+
         <StatementBlock
           variant="dark"
           label="About"
@@ -146,6 +242,16 @@ export default async function Home() {
               { label: "關於", href: "/about" },
             ],
           }}
+        />
+
+        <SplitTextBlock
+          eyebrow="Craft"
+          sectionNumber="02"
+          title="慢下來，才能看見真正重要的事。"
+          body="在資訊過載的時代，Handcraft 選擇放慢腳步。每一篇文章都經過反覆思考與打磨，不為點擊率，只為留下值得回讀的文字。"
+          footnote="寫作是一種修煉，讀者是最好的見證者。"
+          linkHref="/about"
+          linkText="關於這裡"
         />
 
         <PhilosophyBlock
@@ -172,6 +278,51 @@ export default async function Home() {
           ]}
         />
 
+        <StatsBlock
+          eyebrow="數字說話"
+          stats={[
+            {
+              value: "100%",
+              label: "手工製作",
+              note: "每篇文章親自撰寫，不假他人之手",
+            },
+            { value: "0", label: "演算法妥協", note: "只寫自己相信的內容" },
+            { value: "∞", label: "重讀價值", note: "文字應該經得起時間考驗" },
+            { value: "1", label: "讀者優先", note: "寫給真正想讀的人" },
+          ]}
+        />
+
+        <ManifestoBlock
+          eyebrow="我們相信"
+          lines={[
+            { text: "手作是一種誠實。" },
+            { text: "慢是一種立場，不是缺陷。", style: "italic", indent: true },
+            { text: "文字值得被認真對待。" },
+            { text: "讀者不是流量，是對話的對象。", indent: true },
+            { text: "每一篇，都是一個承諾。", style: "italic" },
+          ]}
+          linkHref="/posts"
+          linkText="開始閱讀"
+          variant="dark"
+        />
+
+        <PosterHeroBlock
+          title="Handcraft"
+          eyebrow="文字是手工藝，每一篇都是用心雕琢的作品"
+          image="/images/home/people.png"
+          ctaText="開始閱讀"
+          ctaHref="/posts"
+          socialProof={{ count: `${allPosts.length}+`, text: "篇文章" }}
+          tags={["手工", "文字", "創作", "生活", "思考"]}
+          nav={{
+            logo: "Handcraft",
+            links: [
+              { label: "文章", href: "/posts" },
+              { label: "關於", href: "/about" },
+            ],
+          }}
+        />
+
         {timelineItems.length > 0 && (
           <TimelineBlock
             label="Latest"
@@ -179,6 +330,40 @@ export default async function Home() {
             items={timelineItems}
             viewAllHref="/posts"
             viewAllText="查看全部"
+          />
+        )}
+
+        {showcaseItems.length >= 3 && (
+          <CardGridShowcaseBlock
+            eyebrow="近期文章"
+            title="最新更新"
+            items={showcaseItems.slice(0, 3)}
+            viewAllHref="/posts"
+            viewAllText="查看全部"
+          />
+        )}
+
+        {showcaseItems.length >= 3 && (
+          <MagazineShowcaseBlock
+            eyebrow="精選"
+            items={
+              showcaseItems.slice(0, 3) as [
+                (typeof showcaseItems)[0],
+                (typeof showcaseItems)[0],
+                (typeof showcaseItems)[0],
+              ]
+            }
+          />
+        )}
+
+        {showcaseItems.length > 0 && (
+          <MinimalListShowcaseBlock
+            eyebrow="Archive"
+            title="所有文章"
+            items={showcaseItems}
+            viewAllHref="/posts"
+            viewAllText="查看全部"
+            variant="dark"
           />
         )}
 
