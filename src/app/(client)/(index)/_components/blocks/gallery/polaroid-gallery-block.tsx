@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { GalleryLightbox } from "@/components/gallery/lightbox";
 
 interface PolaroidItem {
   src: string;
@@ -9,6 +10,7 @@ interface PolaroidItem {
 }
 
 interface PolaroidGalleryBlockProps {
+  id?: string;
   /** Expects 3–5 images */
   images: PolaroidItem[];
   label?: string;
@@ -32,14 +34,30 @@ const SLOTS = [
 ];
 
 export function PolaroidGalleryBlock({
+  id,
   images,
   label,
 }: PolaroidGalleryBlockProps) {
   const items = images.slice(0, 5);
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState(0);
+
+  const slides = items.map((img) => ({
+    src: img.src,
+    alt: img.alt,
+    description: img.caption,
+  }));
+
+  function openAt(i: number) {
+    setIndex(i);
+    setOpen(true);
+  }
 
   return (
-    <section className="h-[calc(100vh-3.5rem)] snap-start shrink-0 flex flex-col items-center justify-center overflow-hidden bg-background relative select-none">
+    <section
+      id={id}
+      className="h-[calc(100vh-3.5rem)] snap-start shrink-0 flex flex-col items-center justify-center overflow-hidden bg-background relative select-none"
+    >
       {label && (
         <p className="absolute top-10 left-8 text-[10px] tracking-[0.3em] uppercase text-muted-foreground z-50">
           {label}
@@ -49,19 +67,18 @@ export function PolaroidGalleryBlock({
       <div className="relative flex items-center justify-center w-full h-full">
         {items.map((item, i) => {
           const slot = SLOTS[i % SLOTS.length];
-          const isActive = activeIndex === i;
           return (
             <div
               key={i}
-              onClick={() => setActiveIndex(isActive ? null : i)}
+              onClick={() => openAt(i)}
               className={[
                 "absolute cursor-pointer",
                 "bg-white shadow-xl",
                 "p-3 pb-10",
                 "w-44 sm:w-56",
-                isActive
-                  ? "rotate-0 translate-x-0 translate-y-0 scale-110 z-50 shadow-2xl"
-                  : [slot.rotate, slot.translate, slot.z].join(" "),
+                slot.rotate,
+                slot.translate,
+                slot.z,
                 "transition-all duration-500 ease-out",
                 "hover:rotate-0 hover:translate-x-0 hover:translate-y-0 hover:scale-110 hover:z-50 hover:shadow-2xl",
               ].join(" ")}
@@ -82,6 +99,13 @@ export function PolaroidGalleryBlock({
           );
         })}
       </div>
+
+      <GalleryLightbox
+        open={open}
+        index={index}
+        slides={slides}
+        onClose={() => setOpen(false)}
+      />
     </section>
   );
 }

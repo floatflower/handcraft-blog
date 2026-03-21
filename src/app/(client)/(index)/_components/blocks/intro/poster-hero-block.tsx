@@ -2,6 +2,13 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { Cormorant_Garamond } from "next/font/google";
+
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  style: ["normal", "italic"],
+});
 
 interface BlockNav {
   logo?: string;
@@ -10,6 +17,7 @@ interface BlockNav {
 }
 
 interface PosterHeroBlockProps {
+  id?: string;
   nav?: BlockNav;
   eyebrow?: string;
   title: string;
@@ -35,6 +43,7 @@ function fadeUp(visible: boolean, delay: number): React.CSSProperties {
 }
 
 export function PosterHeroBlock({
+  id,
   nav,
   eyebrow,
   title,
@@ -66,14 +75,15 @@ export function PosterHeroBlock({
   const titleStyle: React.CSSProperties = {
     fontSize: "clamp(4.5rem, 17vw, 20rem)",
     color: "#ffffff",
-    fontFamily: "var(--font-display)",
-    fontWeight: 900,
-    fontStyle: "italic",
+    fontFamily: cormorantGaramond.style.fontFamily,
+    fontWeight: 700,
+    fontStyle: "normal",
   };
   const titleClass = "tracking-tight leading-[0.82] whitespace-nowrap";
   return (
     <section
       ref={sectionRef}
+      id={id}
       className="h-[90vh] md:h-[80vh] lg:h-[calc(100vh-3.5rem)] snap-start shrink-0 relative overflow-hidden"
       style={{ backgroundColor: accentColor }}
     >

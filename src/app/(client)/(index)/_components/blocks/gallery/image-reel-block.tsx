@@ -1,4 +1,10 @@
+"use client";
+
+import { useState } from "react";
+import { GalleryLightbox } from "@/components/gallery/lightbox";
+
 interface ImageReelBlockProps {
+  id?: string;
   images: string[];
   label?: string;
   /** Supports \n for line breaks */
@@ -11,6 +17,7 @@ interface ImageReelBlockProps {
 }
 
 export function ImageReelBlock({
+  id,
   images,
   label = "Manifesto",
   title,
@@ -20,9 +27,21 @@ export function ImageReelBlock({
   reelDuration = 48,
 }: ImageReelBlockProps) {
   const titleLines = title.split("\n");
+  const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState(0);
+
+  const slides = images.map((src) => ({ src }));
+
+  function openAt(i: number) {
+    setIndex(i % images.length);
+    setOpen(true);
+  }
 
   return (
-    <section className="h-[calc(100vh-3.5rem)] snap-start shrink-0 flex flex-col overflow-hidden select-none">
+    <section
+      id={id}
+      className="h-[calc(100vh-3.5rem)] snap-start shrink-0 flex flex-col overflow-hidden select-none"
+    >
       {tickerWordsTop.length > 0 && (
         <div className="shrink-0 overflow-hidden border-b border-border py-3.5">
           <div className="flex gap-10 animate-marquee whitespace-nowrap">
@@ -39,7 +58,7 @@ export function ImageReelBlock({
       )}
 
       <div className="flex-1 relative overflow-hidden">
-        <div className="absolute inset-0 z-10 bg-black/40" />
+        <div className="absolute inset-0 z-10 bg-black/40 pointer-events-none" />
 
         <div className="absolute inset-0 z-20 flex flex-col items-center justify-center pointer-events-none px-6 text-center">
           {label && (
@@ -71,9 +90,13 @@ export function ImageReelBlock({
             }}
           >
             {[...images, ...images].map((src, i) => (
-              <div key={i} className="h-full w-[60vw] sm:w-[30vw] shrink-0">
+              <button
+                key={i}
+                onClick={() => openAt(i)}
+                className="h-full w-[60vw] sm:w-[30vw] shrink-0 focus:outline-none"
+              >
                 <img src={src} alt="" className="h-full w-full object-cover" />
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -93,6 +116,13 @@ export function ImageReelBlock({
           </div>
         </div>
       )}
+
+      <GalleryLightbox
+        open={open}
+        index={index}
+        slides={slides}
+        onClose={() => setOpen(false)}
+      />
     </section>
   );
 }

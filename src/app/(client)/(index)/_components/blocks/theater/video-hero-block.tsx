@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 interface VideoHeroBlockProps {
+  id?: string;
   src: string;
   eyebrow?: string;
   title: string;
@@ -12,6 +13,7 @@ interface VideoHeroBlockProps {
 }
 
 export function VideoHeroBlock({
+  id,
   src,
   eyebrow,
   title,
@@ -21,7 +23,10 @@ export function VideoHeroBlock({
   overlayOpacity = 55,
 }: VideoHeroBlockProps) {
   return (
-    <section className="h-[calc(100vh-3.5rem)] snap-start shrink-0 relative overflow-hidden flex flex-col items-center justify-center text-center px-6">
+    <section
+      id={id}
+      className="h-[calc(100vh-3.5rem)] snap-start shrink-0 relative overflow-hidden flex flex-col items-center justify-center text-center px-6"
+    >
       {/* Background video */}
       <video
         src={src}

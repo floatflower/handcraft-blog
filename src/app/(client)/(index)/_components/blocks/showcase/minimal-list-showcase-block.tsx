@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ShowcaseItem } from "./card-grid-showcase-block";
 
 interface MinimalListShowcaseBlockProps {
+  id?: string;
   eyebrow?: string;
   title?: string;
   items: ShowcaseItem[];
@@ -11,6 +12,7 @@ interface MinimalListShowcaseBlockProps {
 }
 
 export function MinimalListShowcaseBlock({
+  id,
   eyebrow,
   title,
   items,
@@ -22,6 +24,7 @@ export function MinimalListShowcaseBlock({
 
   return (
     <section
+      id={id}
       className={[
         "h-[calc(100vh-3.5rem)] snap-start shrink-0 flex flex-col justify-center px-8 sm:px-16 lg:px-24 py-12 overflow-hidden",
         isDark

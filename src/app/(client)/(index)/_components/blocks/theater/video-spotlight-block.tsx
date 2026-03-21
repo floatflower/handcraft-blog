@@ -1,4 +1,5 @@
 interface VideoSpotlightBlockProps {
+  id?: string;
   src: string;
   poster?: string;
   /** Full-bleed background image behind the video card */
@@ -10,6 +11,7 @@ interface VideoSpotlightBlockProps {
 }
 
 export function VideoSpotlightBlock({
+  id,
   src,
   poster,
   backgroundImage,
@@ -18,7 +20,10 @@ export function VideoSpotlightBlock({
   overlayOpacity = 40,
 }: VideoSpotlightBlockProps) {
   return (
-    <section className="h-[calc(100vh-3.5rem)] snap-start shrink-0 relative overflow-hidden flex flex-col items-center justify-center px-6 sm:px-10">
+    <section
+      id={id}
+      className="h-[calc(100vh-3.5rem)] snap-start shrink-0 relative overflow-hidden flex flex-col items-center justify-center px-6 sm:px-10"
+    >
       {/* Background image */}
       <img
         src={backgroundImage}

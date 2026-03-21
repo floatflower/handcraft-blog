@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import type React from "react";
 import Link from "next/link";
 
 interface BlockNav {
@@ -7,6 +11,7 @@ interface BlockNav {
 }
 
 interface SplitHeroBlockProps {
+  id?: string;
   nav?: BlockNav;
   eyebrow?: string;
   title: string;
@@ -23,7 +28,16 @@ interface SplitHeroBlockProps {
   variant?: "light" | "dark";
 }
 
+function fadeUp(visible: boolean, delay: number): React.CSSProperties {
+  return {
+    opacity: visible ? 1 : 0,
+    transform: visible ? "translateY(0)" : "translateY(28px)",
+    transition: `opacity 0.8s ease ${delay}ms, transform 0.8s ease ${delay}ms`,
+  };
+}
+
 export function SplitHeroBlock({
+  id,
   nav,
   eyebrow,
   title,
@@ -38,11 +52,29 @@ export function SplitHeroBlock({
   imageSide = "right",
   variant = "light",
 }: SplitHeroBlockProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
+      { threshold: 0.2 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const isDark = variant === "dark";
   const imageFirst = imageSide === "left";
 
   return (
     <section
+      ref={sectionRef}
+      id={id}
       className={[
         "h-[calc(100vh-3.5rem)] snap-start shrink-0 grid grid-cols-1 sm:grid-cols-2 overflow-hidden relative",
         isDark
@@ -101,12 +133,16 @@ export function SplitHeroBlock({
               "text-[10px] tracking-[0.35em] uppercase mb-6 font-medium",
               isDark ? "text-background/40" : "text-muted-foreground",
             ].join(" ")}
+            style={fadeUp(visible, 400)}
           >
             {eyebrow}
           </p>
         )}
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter leading-[0.9] mb-6">
+        <h1
+          className="text-4xl sm:text-5xl md:text-6xl font-black tracking-tighter leading-[0.9] mb-6"
+          style={fadeUp(visible, 0)}
+        >
           {title}
         </h1>
 
@@ -116,6 +152,7 @@ export function SplitHeroBlock({
               "text-sm leading-relaxed max-w-sm mb-8",
               isDark ? "text-background/60" : "text-muted-foreground",
             ].join(" ")}
+            style={fadeUp(visible, 200)}
           >
             {subtitle}
           </p>
@@ -123,7 +160,10 @@ export function SplitHeroBlock({
 
         {/* Tags */}
         {tags && tags.length > 0 && (
-          <div className="flex flex-wrap gap-2 mb-8">
+          <div
+            className="flex flex-wrap gap-2 mb-8"
+            style={fadeUp(visible, 400)}
+          >
             {tags.map((tag) => (
               <span
                 key={tag}
@@ -141,7 +181,10 @@ export function SplitHeroBlock({
         )}
 
         {/* CTAs */}
-        <div className="flex items-center gap-4 flex-wrap">
+        <div
+          className="flex items-center gap-4 flex-wrap"
+          style={fadeUp(visible, 400)}
+        >
           {ctaHref && (
             <Link
               href={ctaHref}
@@ -181,6 +224,7 @@ export function SplitHeroBlock({
           "relative overflow-hidden hidden sm:block group",
           imageFirst ? "sm:order-1" : "sm:order-2",
         ].join(" ")}
+        style={fadeUp(visible, 100)}
       >
         <img
           src={image}

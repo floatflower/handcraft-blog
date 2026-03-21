@@ -1,3 +1,8 @@
+"use client";
+
+import { useState } from "react";
+import { GalleryLightbox } from "@/components/gallery/lightbox";
+
 interface BentoGalleryItem {
   src: string;
   alt?: string;
@@ -28,13 +33,30 @@ interface BentoGalleryBlockProps {
     BentoGalleryItem,
   ];
   label?: string;
+  id?: string;
 }
 
-export function BentoGalleryBlock({ images, label }: BentoGalleryBlockProps) {
-  const [img1, img2, img3, img4, img5] = images;
+export function BentoGalleryBlock({
+  id,
+  images,
+  label,
+}: BentoGalleryBlockProps) {
+  const [img1, img2, img3, img4] = images;
+  const [open, setOpen] = useState(false);
+  const [index, setIndex] = useState(0);
+
+  const slides = images.map((img) => ({ src: img.src, alt: img.alt }));
+
+  function openAt(i: number) {
+    setIndex(i);
+    setOpen(true);
+  }
 
   return (
-    <section className="h-[calc(100vh-3.5rem)] snap-start shrink-0 overflow-hidden p-3 bg-background">
+    <section
+      id={id}
+      className="h-[calc(100vh-3.5rem)] snap-start shrink-0 overflow-hidden p-3 bg-background"
+    >
       <style>{`
         .bento-grid {
           display: grid;
@@ -57,23 +79,35 @@ export function BentoGalleryBlock({ images, label }: BentoGalleryBlockProps) {
         }
       `}</style>
       <div className="bento-grid h-full">
-        {/* 1 — wide top-left */}
-        <BentoCell image={img1} area="a" />
-        {/* 2 — top-right */}
-        <BentoCell image={img2} area="b" />
-        {/* 3 — bottom-left */}
-        <BentoCell image={img3} area="c" />
-        {/* 4 — wide bottom-right */}
-        <BentoCell image={img4} area="d" />
+        <BentoCell image={img1} area="a" onClick={() => openAt(0)} />
+        <BentoCell image={img2} area="b" onClick={() => openAt(1)} />
+        <BentoCell image={img3} area="c" onClick={() => openAt(2)} />
+        <BentoCell image={img4} area="d" onClick={() => openAt(3)} />
       </div>
+
+      <GalleryLightbox
+        open={open}
+        index={index}
+        slides={slides}
+        onClose={() => setOpen(false)}
+      />
     </section>
   );
 }
 
-function BentoCell({ image, area }: { image: BentoGalleryItem; area: string }) {
+function BentoCell({
+  image,
+  area,
+  onClick,
+}: {
+  image: BentoGalleryItem;
+  area: string;
+  onClick: () => void;
+}) {
   return (
-    <div
-      className={`bento-cell-${area} relative overflow-hidden rounded-xl group`}
+    <button
+      onClick={onClick}
+      className={`bento-cell-${area} relative overflow-hidden rounded-xl group focus:outline-none w-full`}
     >
       <img
         src={image.src}
@@ -87,6 +121,6 @@ function BentoCell({ image, area }: { image: BentoGalleryItem; area: string }) {
           </span>
         </div>
       )}
-    </div>
+    </button>
   );
 }

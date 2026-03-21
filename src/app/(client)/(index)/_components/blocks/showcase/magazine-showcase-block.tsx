@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ShowcaseItem } from "./card-grid-showcase-block";
 
 interface MagazineShowcaseBlockProps {
+  id?: string;
   eyebrow?: string;
   /** First item becomes the large left feature; items[1] and items[2] stack on the right */
   items: [ShowcaseItem, ShowcaseItem, ShowcaseItem, ...ShowcaseItem[]];
@@ -9,6 +10,7 @@ interface MagazineShowcaseBlockProps {
 }
 
 export function MagazineShowcaseBlock({
+  id,
   eyebrow,
   items,
   variant = "light",
@@ -19,6 +21,7 @@ export function MagazineShowcaseBlock({
 
   return (
     <section
+      id={id}
       className={[
         "h-[calc(100vh-3.5rem)] snap-start shrink-0 flex flex-col px-6 sm:px-10 py-10 overflow-hidden",
         isDark

@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import type React from "react";
 import Link from "next/link";
 
 interface BlockNav {
@@ -7,6 +11,7 @@ interface BlockNav {
 }
 
 interface FullbleedHeroBlockProps {
+  id?: string;
   nav?: BlockNav;
   eyebrow?: string;
   title: string;
@@ -21,7 +26,16 @@ interface FullbleedHeroBlockProps {
   overlayOpacity?: number;
 }
 
+function fadeUp(visible: boolean, delay: number): React.CSSProperties {
+  return {
+    opacity: visible ? 1 : 0,
+    transform: visible ? "translateY(0)" : "translateY(28px)",
+    transition: `opacity 0.8s ease ${delay}ms, transform 0.8s ease ${delay}ms`,
+  };
+}
+
 export function FullbleedHeroBlock({
+  id,
   nav,
   eyebrow,
   title,
@@ -33,8 +47,28 @@ export function FullbleedHeroBlock({
   imageAlt,
   overlayOpacity = 50,
 }: FullbleedHeroBlockProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
+      { threshold: 0.2 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="h-[calc(100vh-3.5rem)] snap-start shrink-0 relative overflow-hidden text-white">
+    <section
+      ref={sectionRef}
+      id={id}
+      className="h-[calc(100vh-3.5rem)] snap-start shrink-0 relative overflow-hidden text-white"
+    >
       {/* Background image */}
       <img
         src={image}
@@ -73,7 +107,10 @@ export function FullbleedHeroBlock({
 
       {/* Meta card — top right */}
       {(metaLabel || metaValue) && (
-        <div className="absolute top-20 right-6 sm:right-10 z-20 border border-white/20 rounded-xl px-4 py-3 backdrop-blur-sm bg-white/5 flex flex-col gap-0.5">
+        <div
+          className="absolute top-20 right-6 sm:right-10 z-20 border border-white/20 rounded-xl px-4 py-3 backdrop-blur-sm bg-white/5 flex flex-col gap-0.5"
+          style={fadeUp(visible, 400)}
+        >
           {metaValue && (
             <p className="text-xl font-black tracking-tighter leading-none text-white">
               {metaValue}
@@ -87,47 +124,54 @@ export function FullbleedHeroBlock({
         </div>
       )}
 
-      {/* Eyebrow */}
-      {eyebrow && (
-        <p className="absolute bottom-[calc(3.5rem+1px+6.5rem+2rem)] left-6 sm:left-10 z-20 text-[10px] tracking-[0.35em] uppercase text-white/50 font-medium">
-          {eyebrow}
-        </p>
-      )}
-
-      {/* Oversized title — bottom left, bleeding toward edge */}
-      <div className="absolute bottom-16 left-0 right-0 z-20 px-6 sm:px-10">
-        <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[0.88] text-white max-w-5xl">
-          {title}
-        </h1>
-      </div>
-
-      {/* CTA + scroll hint row — very bottom */}
-      <div className="absolute bottom-6 left-6 sm:left-10 right-6 sm:right-10 z-20 flex items-center justify-between">
-        {ctaHref ? (
-          <Link
-            href={ctaHref}
-            className="group inline-flex items-center gap-3 text-xs tracking-[0.2em] uppercase text-white border-b border-white/30 pb-1 hover:border-white transition-colors"
+      {/* Eyebrow + title + CTA — grouped bottom-left */}
+      <div className="absolute bottom-6 left-6 sm:left-10 right-6 sm:right-10 z-20 flex flex-col gap-4">
+        {eyebrow && (
+          <p
+            className="text-[10px] tracking-[0.35em] uppercase text-white/50 font-medium"
+            style={fadeUp(visible, 200)}
           >
-            {ctaText}
-            <span className="transition-transform duration-300 group-hover:translate-x-1">
-              →
-            </span>
-          </Link>
-        ) : (
-          <div />
+            {eyebrow}
+          </p>
         )}
 
-        <div className="flex flex-col items-center gap-1 text-white/40 animate-bounce">
-          <span className="text-[9px] tracking-widest uppercase">scroll</span>
-          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-            <path
-              d="M6 2v8M2 6l4 4 4-4"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
+        <h1
+          className="text-5xl sm:text-7xl md:text-8xl lg:text-9xl font-black tracking-tighter leading-[1.05] text-white whitespace-pre-line"
+          style={fadeUp(visible, 0)}
+        >
+          {title}
+        </h1>
+
+        <div
+          className="flex items-center justify-between"
+          style={fadeUp(visible, 400)}
+        >
+          {ctaHref ? (
+            <Link
+              href={ctaHref}
+              className="group inline-flex items-center gap-3 text-xs tracking-[0.2em] uppercase text-white border-b border-white/30 pb-1 hover:border-white transition-colors"
+            >
+              {ctaText}
+              <span className="transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </Link>
+          ) : (
+            <div />
+          )}
+
+          <div className="flex flex-col items-center gap-1 text-white/40 animate-bounce">
+            <span className="text-[9px] tracking-widest uppercase">scroll</span>
+            <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+              <path
+                d="M6 2v8M2 6l4 4 4-4"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 import Link from "next/link";
 
 interface VideoEditorialBlockProps {
+  id?: string;
   src: string;
   eyebrow?: string;
   title: string;
@@ -14,6 +15,7 @@ interface VideoEditorialBlockProps {
 }
 
 export function VideoEditorialBlock({
+  id,
   src,
   eyebrow,
   title,
@@ -29,6 +31,7 @@ export function VideoEditorialBlock({
 
   return (
     <section
+      id={id}
       className={[
         "h-[calc(100vh-3.5rem)] snap-start shrink-0 grid grid-cols-1 sm:grid-cols-2 overflow-hidden",
         isDark

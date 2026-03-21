@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import type React from "react";
 import Link from "next/link";
 
 interface BlockNav {
@@ -7,6 +11,7 @@ interface BlockNav {
 }
 
 interface StatementBlockProps {
+  id?: string;
   label?: string;
   /** Main statement text. Use \n for line breaks. */
   statement: string;
@@ -17,7 +22,16 @@ interface StatementBlockProps {
   nav?: BlockNav;
 }
 
+function fadeUp(visible: boolean, delay: number): React.CSSProperties {
+  return {
+    opacity: visible ? 1 : 0,
+    transform: visible ? "translateY(0)" : "translateY(28px)",
+    transition: `opacity 0.8s ease ${delay}ms, transform 0.8s ease ${delay}ms`,
+  };
+}
+
 export function StatementBlock({
+  id,
   label,
   statement,
   footnote,
@@ -25,11 +39,29 @@ export function StatementBlock({
   variant = "light",
   nav,
 }: StatementBlockProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
+      { threshold: 0.2 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const isDark = variant === "dark";
   const lines = statement.split("\n");
 
   return (
     <section
+      ref={sectionRef}
+      id={id}
       className={[
         "h-[calc(100vh-3.5rem)] snap-start shrink-0 flex flex-col justify-center px-8 sm:px-16 lg:px-24 relative overflow-hidden",
         align === "center" && "items-center text-center",
@@ -95,12 +127,16 @@ export function StatementBlock({
             "text-xs tracking-[0.3em] uppercase mb-8",
             isDark ? "text-background/40" : "text-muted-foreground",
           ].join(" ")}
+          style={fadeUp(visible, 400)}
         >
           {label}
         </p>
       )}
 
-      <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[0.95] max-w-4xl">
+      <h2
+        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tighter leading-[0.95] max-w-4xl"
+        style={fadeUp(visible, 0)}
+      >
         {lines.map((line, i, arr) => (
           <span key={i}>
             {line}
@@ -115,6 +151,7 @@ export function StatementBlock({
             "mt-10 text-sm leading-relaxed max-w-sm",
             isDark ? "text-background/50" : "text-muted-foreground",
           ].join(" ")}
+          style={fadeUp(visible, 200)}
         >
           {footnote}
         </p>

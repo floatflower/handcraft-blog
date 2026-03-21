@@ -14,7 +14,6 @@ import { StatementBlock } from "./_components/blocks/editorial/statement-block";
 import { PhilosophyBlock } from "./_components/blocks/editorial/philosophy-block";
 import { SplitTextBlock } from "./_components/blocks/editorial/split-text-block";
 import { PullQuoteBlock } from "./_components/blocks/editorial/pull-quote-block";
-import { StatsBlock } from "./_components/blocks/editorial/stats-block";
 import { ManifestoBlock } from "./_components/blocks/editorial/manifesto-block";
 import { VideoHeroBlock } from "./_components/blocks/theater/video-hero-block";
 import { VideoSpotlightBlock } from "./_components/blocks/theater/video-spotlight-block";
@@ -25,6 +24,9 @@ import { CardGridShowcaseBlock } from "./_components/blocks/showcase/card-grid-s
 import { MagazineShowcaseBlock } from "./_components/blocks/showcase/magazine-showcase-block";
 import { MinimalListShowcaseBlock } from "./_components/blocks/showcase/minimal-list-showcase-block";
 import { CtaBlock } from "./_components/blocks/cta/cta-block";
+import { WaveformPlayerBlock } from "./_components/blocks/vinyl/waveform-player-block";
+import { CoverPlayerBlock } from "./_components/blocks/vinyl/cover-player-block";
+import { RipplePlayerBlock } from "./_components/blocks/vinyl/ripple-player-block";
 
 const REEL_IMAGES = [
   "/images/home/image-1.jpg",
@@ -70,6 +72,7 @@ export default async function Home() {
     <div className="h-dvh overflow-hidden">
       <div className="h-full overflow-y-scroll snap-y snap-mandatory [&>section]:h-dvh">
         <HeroBlock
+          id="hero"
           label="Welcome to"
           title="Handcraft"
           subtitle="文字是手工藝，每一篇都是用心雕琢的作品。"
@@ -84,6 +87,7 @@ export default async function Home() {
         />
 
         <ImageGridBlock
+          id="image-grid"
           images={[
             { src: "/images/home/image-1.jpg" },
             { src: "/images/home/image-2.jpg" },
@@ -92,6 +96,7 @@ export default async function Home() {
         />
 
         <MosaicGalleryBlock
+          id="mosaic-gallery"
           images={[
             { src: "/images/home/image-1.jpg" },
             { src: "/posts/hello-world/cover.jpg" },
@@ -101,6 +106,7 @@ export default async function Home() {
         />
 
         <SplitHeroBlock
+          id="split-hero"
           eyebrow="Handcraft Studio"
           title={"慢工，\n出細活。"}
           subtitle="不追流量，只追求值得反覆閱讀的文字。每一篇都花時間沉澱。"
@@ -114,6 +120,7 @@ export default async function Home() {
         />
 
         <BentoGalleryBlock
+          id="bento-gallery"
           label="Collection"
           images={[
             { src: "/images/home/image-1.jpg" },
@@ -125,6 +132,7 @@ export default async function Home() {
         />
 
         <FullbleedHeroBlock
+          id="fullbleed-hero"
           title={"用文字\n丈量生活。"}
           eyebrow="Handcraft"
           image="/images/home/image-3.jpg"
@@ -143,6 +151,7 @@ export default async function Home() {
         />
 
         <FocusGalleryBlock
+          id="focus-gallery"
           label="Moments"
           title="用鏡頭記錄生活"
           images={[
@@ -154,6 +163,7 @@ export default async function Home() {
         />
 
         <PolaroidGalleryBlock
+          id="polaroid-gallery"
           label="Memories"
           images={[
             { src: "/images/home/image-1.jpg", caption: "2024 春" },
@@ -165,6 +175,7 @@ export default async function Home() {
         />
 
         <VideoHeroBlock
+          id="video-hero"
           src="/videos/demo.mp4"
           eyebrow="Handcraft"
           title={`文字，是最慢的\n藝術。`}
@@ -175,6 +186,7 @@ export default async function Home() {
         />
 
         <VideoEditorialBlock
+          id="video-editorial"
           src="/videos/demo.mp4"
           eyebrow="Behind the Craft"
           title={"每一篇文字\n背後的故事"}
@@ -186,6 +198,7 @@ export default async function Home() {
         />
 
         <VideoSpotlightBlock
+          id="video-spotlight"
           src="/videos/demo.mp4"
           backgroundImage="/images/home/image-1.jpg"
           label="Demo"
@@ -194,6 +207,7 @@ export default async function Home() {
         />
 
         <ImageReelBlock
+          id="image-reel"
           images={REEL_IMAGES}
           label="Manifesto"
           title={"不批量生產，\n只手工雕琢。"}
@@ -222,6 +236,7 @@ export default async function Home() {
         />
 
         <PullQuoteBlock
+          id="pull-quote"
           quote="好的文字不需要大聲，它只需要真實。"
           author="Handcraft"
           role="創作理念"
@@ -231,6 +246,7 @@ export default async function Home() {
         />
 
         <StatementBlock
+          id="statement"
           variant="dark"
           label="About"
           statement={"文字不是\n快消品。"}
@@ -245,6 +261,7 @@ export default async function Home() {
         />
 
         <SplitTextBlock
+          id="split-text"
           eyebrow="Craft"
           sectionNumber="02"
           title="慢下來，才能看見真正重要的事。"
@@ -255,6 +272,7 @@ export default async function Home() {
         />
 
         <PhilosophyBlock
+          id="philosophy"
           label="Philosophy"
           title="創作理念"
           image="/posts/hello-world/cover.jpg"
@@ -278,21 +296,8 @@ export default async function Home() {
           ]}
         />
 
-        <StatsBlock
-          eyebrow="數字說話"
-          stats={[
-            {
-              value: "100%",
-              label: "手工製作",
-              note: "每篇文章親自撰寫，不假他人之手",
-            },
-            { value: "0", label: "演算法妥協", note: "只寫自己相信的內容" },
-            { value: "∞", label: "重讀價值", note: "文字應該經得起時間考驗" },
-            { value: "1", label: "讀者優先", note: "寫給真正想讀的人" },
-          ]}
-        />
-
         <ManifestoBlock
+          id="manifesto"
           eyebrow="我們相信"
           lines={[
             { text: "手作是一種誠實。" },
@@ -307,6 +312,7 @@ export default async function Home() {
         />
 
         <PosterHeroBlock
+          id="poster-hero"
           title="Handcraft"
           eyebrow="文字是手工藝，每一篇都是用心雕琢的作品"
           image="/images/home/people.png"
@@ -325,6 +331,7 @@ export default async function Home() {
 
         {timelineItems.length > 0 && (
           <TimelineBlock
+            id="timeline"
             label="Latest"
             title="最新文章"
             items={timelineItems}
@@ -335,6 +342,7 @@ export default async function Home() {
 
         {showcaseItems.length >= 3 && (
           <CardGridShowcaseBlock
+            id="card-grid-showcase"
             eyebrow="近期文章"
             title="最新更新"
             items={showcaseItems.slice(0, 3)}
@@ -345,6 +353,7 @@ export default async function Home() {
 
         {showcaseItems.length >= 3 && (
           <MagazineShowcaseBlock
+            id="magazine-showcase"
             eyebrow="精選"
             items={
               showcaseItems.slice(0, 3) as [
@@ -358,6 +367,7 @@ export default async function Home() {
 
         {showcaseItems.length > 0 && (
           <MinimalListShowcaseBlock
+            id="minimal-list-showcase"
             eyebrow="Archive"
             title="所有文章"
             items={showcaseItems}
@@ -369,6 +379,7 @@ export default async function Home() {
 
         {featuredPost && (
           <FeaturePostBlock
+            id="feature-post"
             label="Featured"
             title={featuredPost.metadata.title ?? featuredPost.slug}
             excerpt={featuredPost.metadata.excerpt}
@@ -397,7 +408,32 @@ export default async function Home() {
           />
         )}
 
+        <WaveformPlayerBlock
+          id="waveform-player"
+          src="/audios/demo.mp3"
+          title="Demo Track"
+          artist="Handcraft"
+        />
+
+        <CoverPlayerBlock
+          id="cover-player"
+          src="/audios/demo.mp3"
+          backgroundImage="/images/home/image-1.jpg"
+          title="Demo Track"
+          artist="Handcraft"
+          label="Now Playing"
+        />
+
+        <RipplePlayerBlock
+          id="ripple-player"
+          src="/audios/demo.mp3"
+          backgroundImage="/images/home/image-1.jpg"
+          title="Demo Track"
+          artist="Handcraft"
+        />
+
         <CtaBlock
+          id="cta"
           label="Start Reading"
           count={allPosts.length}
           countLabel="篇文章，等著你。"

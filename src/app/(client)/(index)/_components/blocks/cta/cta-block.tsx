@@ -7,6 +7,7 @@ interface BlockNav {
 }
 
 interface CtaBlockProps {
+  id?: string;
   label?: string;
   count?: number;
   countLabel?: string;
@@ -17,6 +18,7 @@ interface CtaBlockProps {
 }
 
 export function CtaBlock({
+  id,
   label = "Start Reading",
   count,
   countLabel,
@@ -26,7 +28,10 @@ export function CtaBlock({
   nav,
 }: CtaBlockProps) {
   return (
-    <section className="h-[calc(100vh-3.5rem)] snap-start shrink-0 relative overflow-hidden flex flex-col items-center justify-center px-6 text-center">
+    <section
+      id={id}
+      className="h-[calc(100vh-3.5rem)] snap-start shrink-0 relative overflow-hidden flex flex-col items-center justify-center px-6 text-center"
+    >
       <img
         src={backgroundImage}
         alt=""

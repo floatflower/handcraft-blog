@@ -47,6 +47,12 @@ export default function RootLayout({
         playfairDisplay.variable,
       )}
     >
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.vash.network/fontawesome/6.6.0/css/all.css"
+        />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );

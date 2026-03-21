@@ -10,6 +10,7 @@ export interface ShowcaseItem {
 }
 
 interface CardGridShowcaseBlockProps {
+  id?: string;
   eyebrow?: string;
   title?: string;
   items: ShowcaseItem[];
@@ -19,6 +20,7 @@ interface CardGridShowcaseBlockProps {
 }
 
 export function CardGridShowcaseBlock({
+  id,
   eyebrow,
   title,
   items,
@@ -30,6 +32,7 @@ export function CardGridShowcaseBlock({
 
   return (
     <section
+      id={id}
       className={[
         "h-[calc(100vh-3.5rem)] snap-start shrink-0 flex flex-col px-6 sm:px-10 py-10 overflow-hidden",
         isDark

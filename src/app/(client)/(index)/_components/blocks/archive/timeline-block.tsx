@@ -8,6 +8,7 @@ export interface TimelineItem {
 }
 
 interface TimelineBlockProps {
+  id?: string;
   label?: string;
   title: string;
   items: TimelineItem[];
@@ -16,6 +17,7 @@ interface TimelineBlockProps {
 }
 
 export function TimelineBlock({
+  id,
   label,
   title,
   items,
@@ -23,7 +25,10 @@ export function TimelineBlock({
   viewAllText = "查看全部",
 }: TimelineBlockProps) {
   return (
-    <section className="h-[calc(100vh-3.5rem)] snap-start shrink-0 flex flex-col justify-center px-8 sm:px-16 py-12 relative overflow-hidden">
+    <section
+      id={id}
+      className="h-[calc(100vh-3.5rem)] snap-start shrink-0 flex flex-col justify-center px-8 sm:px-16 py-12 relative overflow-hidden"
+    >
       <div className="max-w-3xl w-full mx-auto">
         <div className="flex items-end justify-between mb-10">
           <div>

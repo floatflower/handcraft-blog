@@ -7,6 +7,7 @@ interface BlockNav {
 }
 
 interface FeaturePostBlockProps {
+  id?: string;
   /** Shown in the navbar's right side when nav is present, otherwise top-right of section */
   label?: string;
   title: string;
@@ -19,6 +20,7 @@ interface FeaturePostBlockProps {
 }
 
 export function FeaturePostBlock({
+  id,
   label = "Featured",
   title,
   excerpt,
@@ -29,7 +31,10 @@ export function FeaturePostBlock({
   nav,
 }: FeaturePostBlockProps) {
   return (
-    <section className="h-[calc(100vh-3.5rem)] snap-start shrink-0 relative overflow-hidden group">
+    <section
+      id={id}
+      className="h-[calc(100vh-3.5rem)] snap-start shrink-0 relative overflow-hidden group"
+    >
       {/* Background image */}
       <img
         src={backgroundImage}

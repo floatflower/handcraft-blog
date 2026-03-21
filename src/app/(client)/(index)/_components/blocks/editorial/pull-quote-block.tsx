@@ -1,4 +1,10 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import type React from "react";
+
 interface PullQuoteBlockProps {
+  id?: string;
   quote: string;
   author?: string;
   role?: string;
@@ -9,7 +15,16 @@ interface PullQuoteBlockProps {
   align?: "left" | "center";
 }
 
+function fadeUp(visible: boolean, delay: number): React.CSSProperties {
+  return {
+    opacity: visible ? 1 : 0,
+    transform: visible ? "translateY(0)" : "translateY(28px)",
+    transition: `opacity 0.8s ease ${delay}ms, transform 0.8s ease ${delay}ms`,
+  };
+}
+
 export function PullQuoteBlock({
+  id,
   quote,
   author,
   role,
@@ -17,10 +32,28 @@ export function PullQuoteBlock({
   overlay = "dark",
   align = "center",
 }: PullQuoteBlockProps) {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
+      { threshold: 0.2 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
   const isDark = overlay === "dark";
 
   return (
     <section
+      ref={sectionRef}
+      id={id}
       className={[
         "h-[calc(100vh-3.5rem)] snap-start shrink-0 relative overflow-hidden flex flex-col justify-center px-8 sm:px-16 lg:px-28",
         align === "center" && "items-center text-center",
@@ -62,6 +95,7 @@ export function PullQuoteBlock({
                 ? "text-background/15"
                 : "text-foreground/10",
           ].join(" ")}
+          style={fadeUp(visible, 0)}
         >
           "
         </span>
@@ -77,12 +111,16 @@ export function PullQuoteBlock({
                 ? "text-background"
                 : "text-foreground",
           ].join(" ")}
+          style={fadeUp(visible, 0)}
         >
           {quote}
         </blockquote>
 
         {(author || role) && (
-          <div className="mt-10 flex flex-col gap-0.5">
+          <div
+            className="mt-10 flex flex-col gap-0.5"
+            style={fadeUp(visible, 200)}
+          >
             {author && (
               <p
                 className={[
