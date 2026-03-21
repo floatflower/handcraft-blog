@@ -67,8 +67,8 @@ export default async function Home() {
   }));
 
   return (
-    <div className="h-screen overflow-hidden">
-      <div className="h-full overflow-y-scroll snap-y snap-mandatory [&>section]:h-screen">
+    <div className="h-dvh overflow-hidden">
+      <div className="h-full overflow-y-scroll snap-y snap-mandatory [&>section]:h-dvh">
         <HeroBlock
           label="Welcome to"
           title="Handcraft"
