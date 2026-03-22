@@ -35,6 +35,7 @@ import { LinksGridBlock } from "./_components/blocks/links/links-grid-block";
 import { CtaTagsBlock } from "./_components/blocks/cta/cta-tags-block";
 import { CtaFullTextBlock } from "./_components/blocks/cta/cta-full-text-block";
 import { CtaTagIndexBlock } from "./_components/blocks/cta/cta-tag-index-block";
+import { CharacterShowcaseBlock } from "./_components/blocks/intro/character-showcase-block";
 
 const REEL_IMAGES = [
   "/images/home/image-1.jpg",
@@ -469,6 +470,150 @@ export default async function Home() {
               { label: "關於", href: "/about" },
             ],
           }}
+        />
+
+        <CharacterShowcaseBlock
+          id="character-showcase-01"
+          colorScheme="red-black"
+          characterName="昊仔"
+          codeName="Haozai qwq"
+          subtitle="電擊ダメージ"
+          characterImage="/images/home/character-02.png"
+          statLines={["電擊ダメージ属性攻撃", "境域大木にて音楽の魂を宿す"]}
+          abilities={[
+            { label: "攻撃", value: 88 },
+            { label: "防御", value: 62 },
+            { label: "速度", value: 95 },
+            { label: "魔力", value: 74 },
+            { label: "体力", value: 80 },
+            { label: "運気", value: 57 },
+          ]}
+          galleryImages={[
+            "/images/home/image-1.jpg",
+            "/images/home/image-2.jpg",
+            "/images/home/image-3.jpg",
+            "/posts/hello-world/cover.jpg",
+          ]}
+        />
+
+        <CharacterShowcaseBlock
+          id="character-showcase-03"
+          colorScheme="yellow-black"
+          characterName="昊仔"
+          codeName="Haozai qwq"
+          subtitle="電擊ダメージ"
+          characterImage="/images/home/character-03.png"
+          statLines={["電擊ダメージ属性攻撃", "境域大木にて音楽の魂を宿す"]}
+          abilities={[
+            { label: "攻撃", value: 88 },
+            { label: "防御", value: 62 },
+            { label: "速度", value: 95 },
+            { label: "魔力", value: 74 },
+            { label: "体力", value: 80 },
+            { label: "運気", value: 57 },
+          ]}
+          galleryImages={[
+            "/images/home/image-1.jpg",
+            "/images/home/image-2.jpg",
+            "/images/home/image-3.jpg",
+            "/posts/hello-world/cover.jpg",
+          ]}
+        />
+
+        <CharacterShowcaseBlock
+          id="character-showcase-04"
+          colorScheme="teal-black"
+          characterName="昊仔"
+          codeName="Haozai qwq"
+          subtitle="電擊ダメージ"
+          characterImage="/images/home/character-04.png"
+          statLines={["電擊ダメージ属性攻撃", "境域大木にて音楽の魂を宿す"]}
+          abilities={[
+            { label: "攻撃", value: 88 },
+            { label: "防御", value: 62 },
+            { label: "速度", value: 95 },
+            { label: "魔力", value: 74 },
+            { label: "体力", value: 80 },
+            { label: "運気", value: 57 },
+          ]}
+          galleryImages={[
+            "/images/home/image-1.jpg",
+            "/images/home/image-2.jpg",
+            "/images/home/image-3.jpg",
+            "/posts/hello-world/cover.jpg",
+          ]}
+        />
+
+        <CharacterShowcaseBlock
+          id="character-showcase-05"
+          colorScheme="red-gray"
+          characterName="昊仔"
+          codeName="Haozai qwq"
+          subtitle="電擊ダメージ"
+          characterImage="/images/home/character-06.png"
+          statLines={["電擊ダメージ属性攻撃", "境域大木にて音楽の魂を宿す"]}
+          abilities={[
+            { label: "攻撃", value: 88 },
+            { label: "防御", value: 62 },
+            { label: "速度", value: 95 },
+            { label: "魔力", value: 74 },
+            { label: "体力", value: 80 },
+            { label: "運気", value: 57 },
+          ]}
+          galleryImages={[
+            "/images/home/image-1.jpg",
+            "/images/home/image-2.jpg",
+            "/images/home/image-3.jpg",
+            "/posts/hello-world/cover.jpg",
+          ]}
+        />
+
+        <CharacterShowcaseBlock
+          id="character-showcase-06"
+          colorScheme="teal-gray"
+          characterName="昊仔"
+          codeName="Haozai qwq"
+          subtitle="電擊ダメージ"
+          characterImage="/images/home/character-05.png"
+          statLines={["電擊ダメージ属性攻撃", "境域大木にて音楽の魂を宿す"]}
+          abilities={[
+            { label: "攻撃", value: 88 },
+            { label: "防御", value: 62 },
+            { label: "速度", value: 95 },
+            { label: "魔力", value: 74 },
+            { label: "体力", value: 80 },
+            { label: "運気", value: 57 },
+          ]}
+          galleryImages={[
+            "/images/home/image-1.jpg",
+            "/images/home/image-2.jpg",
+            "/images/home/image-3.jpg",
+            "/posts/hello-world/cover.jpg",
+          ]}
+        />
+
+        <CharacterShowcaseBlock
+          id="character-showcase-02"
+          colorScheme="yellow-gray"
+          characterName="昊仔"
+          codeName="Haozai qwq"
+          subtitle="電擊ダメージ"
+          characterImage="/images/home/character-01.png"
+          statLines={["電擊ダメージ属性攻撃", "境域大木にて音楽の魂を宿す"]}
+          abilities={[
+            { label: "攻撃", value: 88 },
+            { label: "防御", value: 62 },
+            { label: "速度", value: 95 },
+            { label: "魔力", value: 74 },
+            { label: "体力", value: 80 },
+            { label: "運気", value: 57 },
+          ]}
+          galleryImages={[
+            "/images/home/image-1.jpg",
+            "/images/home/image-2.jpg",
+            "/images/home/image-3.jpg",
+            "/posts/hello-world/cover.jpg",
+          ]}
         />
 
         <WaveformPlayerBlock
