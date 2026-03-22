@@ -26,7 +26,7 @@ import { MinimalListShowcaseBlock } from "./_components/blocks/showcase/minimal-
 import { CtaBlock } from "./_components/blocks/cta/cta-block";
 import { WaveformPlayerBlock } from "./_components/blocks/vinyl/waveform-player-block";
 import { CoverPlayerBlock } from "./_components/blocks/vinyl/cover-player-block";
-import { RipplePlayerBlock } from "./_components/blocks/vinyl/ripple-player-block";
+import { PurseHeroBlock } from "./_components/blocks/intro/purse-hero-block";
 
 const REEL_IMAGES = [
   "/images/home/image-1.jpg",
@@ -408,6 +408,23 @@ export default async function Home() {
           />
         )}
 
+        <PurseHeroBlock
+          id="purse-hero"
+          title="隨身的工藝"
+          subtitle="每一個細節都是手工打磨，帶著它，帶著自己的品味。"
+          eyebrow="New Arrival"
+          tags={["皮革", "手工", "經典", "輕奢"]}
+          ctaText="探索更多"
+          ctaHref="/posts"
+          nav={{
+            logo: "Handcraft",
+            links: [
+              { label: "文章", href: "/posts" },
+              { label: "關於", href: "/about" },
+            ],
+          }}
+        />
+
         <WaveformPlayerBlock
           id="waveform-player"
           src="/audios/demo.mp3"
@@ -422,14 +439,6 @@ export default async function Home() {
           title="Demo Track"
           artist="Handcraft"
           label="Now Playing"
-        />
-
-        <RipplePlayerBlock
-          id="ripple-player"
-          src="/audios/demo.mp3"
-          backgroundImage="/images/home/image-1.jpg"
-          title="Demo Track"
-          artist="Handcraft"
         />
 
         <CtaBlock
