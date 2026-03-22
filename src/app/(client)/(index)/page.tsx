@@ -27,6 +27,14 @@ import { CtaBlock } from "./_components/blocks/cta/cta-block";
 import { WaveformPlayerBlock } from "./_components/blocks/vinyl/waveform-player-block";
 import { CoverPlayerBlock } from "./_components/blocks/vinyl/cover-player-block";
 import { PurseHeroBlock } from "./_components/blocks/intro/purse-hero-block";
+import { StorySplitBlock } from "./_components/blocks/story/story-split-block";
+import { StoryImageAsideBlock } from "./_components/blocks/story/story-image-aside-block";
+import { StoryCenteredBlock } from "./_components/blocks/story/story-centered-block";
+import { StoryStackedBlock } from "./_components/blocks/story/story-stacked-block";
+import { LinksGridBlock } from "./_components/blocks/links/links-grid-block";
+import { CtaTagsBlock } from "./_components/blocks/cta/cta-tags-block";
+import { CtaFullTextBlock } from "./_components/blocks/cta/cta-full-text-block";
+import { CtaTagIndexBlock } from "./_components/blocks/cta/cta-tag-index-block";
 
 const REEL_IMAGES = [
   "/images/home/image-1.jpg",
@@ -260,6 +268,44 @@ export default async function Home() {
           }}
         />
 
+        <StorySplitBlock
+          id="story-split"
+          eyebrow="Story"
+          sectionNumber="01"
+          title="慢下來，才能看見真正重要的事。"
+          subtitle="Craft"
+          body="在資訊過載的時代，選擇放慢腳步。每一篇文章都經過反覆思考與打磨，不為點擊率，只為留下值得回讀的文字。"
+        />
+
+        <StoryImageAsideBlock
+          id="story-image-aside"
+          eyebrow="Life"
+          title="用影像說一個故事。"
+          subtitle="Photography"
+          body="每一張照片背後都有一段時間的沉澱，鏡頭只是記錄，真正的主角是光線與情感之間的那一刻。"
+          image="/images/home/image-2.jpg"
+          imageSide="right"
+        />
+
+        <StoryCenteredBlock
+          id="story-centered"
+          eyebrow="Reflection"
+          title="靜下來，聽文字說話。"
+          subtitle="2024"
+          body="有些話不需要大聲，只要真實。在這裡，文字是最輕的重量，也是最深的連結。"
+          image="/images/home/image-3.jpg"
+          overlay="dark"
+        />
+
+        <StoryStackedBlock
+          id="story-stacked"
+          eyebrow="Essay"
+          title="不批量生產，只手工雕琢。"
+          subtitle="Handcraft Studio"
+          body="寫作不只是輸出想法，更是一種與自己對話的過程。每一篇文章都需要時間沉澱，才能讓文字真正有重量。"
+          image="/posts/hello-world/cover.jpg"
+        />
+
         <SplitTextBlock
           id="split-text"
           eyebrow="Craft"
@@ -439,6 +485,87 @@ export default async function Home() {
           title="Demo Track"
           artist="Handcraft"
           label="Now Playing"
+        />
+
+        <LinksGridBlock
+          id="links-grid"
+          eyebrow="Connect"
+          title="找到我們"
+          subtitle="選擇你最習慣的方式，與我們保持聯繫。"
+          links={[
+            {
+              platform: "Facebook",
+              handle: "@handcraft",
+              href: "https://facebook.com",
+            },
+            {
+              platform: "Instagram",
+              handle: "@handcraft",
+              href: "https://instagram.com",
+            },
+            {
+              platform: "Twitter",
+              handle: "@handcraft",
+              href: "https://twitter.com",
+            },
+            { platform: "Line", handle: "@handcraft", href: "https://line.me" },
+            {
+              platform: "YouTube",
+              handle: "Handcraft",
+              href: "https://youtube.com",
+            },
+            {
+              platform: "Email",
+              handle: "hello@handcraft.com",
+              href: "mailto:hello@handcraft.com",
+            },
+          ]}
+        />
+
+        <CtaTagIndexBlock
+          id="cta-tag-index"
+          eyebrow="Topics"
+          title="你想從哪裡開始？"
+          subtitle="選擇一個主題，進入那個世界。"
+          tags={[
+            { label: "手工", href: "/tags/手工/1", count: 12 },
+            { label: "文字", href: "/tags/文字/1", count: 8 },
+            { label: "創作", href: "/tags/創作/1", count: 15 },
+            { label: "生活", href: "/tags/生活/1", count: 20 },
+            { label: "思考", href: "/tags/思考/1", count: 6 },
+            { label: "攝影", href: "/tags/攝影/1", count: 9 },
+          ]}
+        />
+
+        <CtaTagsBlock
+          id="cta-tags"
+          eyebrow="Explore"
+          title="找到你感興趣的主題"
+          subtitle="從這些標籤出發，找到與你共鳴的文字。"
+          image="/images/home/image-1.jpg"
+          overlayOpacity={55}
+          tags={[
+            { label: "手工", href: "/tags/手工/1" },
+            { label: "文字", href: "/tags/文字/1" },
+            { label: "創作", href: "/tags/創作/1" },
+            { label: "生活", href: "/tags/生活/1" },
+            { label: "思考", href: "/tags/思考/1" },
+            { label: "攝影", href: "/tags/攝影/1" },
+            { label: "設計", href: "/tags/設計/1" },
+            { label: "音樂", href: "/tags/音樂/1" },
+          ]}
+        />
+
+        <CtaFullTextBlock
+          id="cta-full-text"
+          eyebrow="Handcraft"
+          title={"準備好了嗎？"}
+          subtitle="每一篇文章都是一次對話的邀請，不需要準備，只需要一點好奇心。"
+          variant="dark"
+          actions={[
+            { label: "開始閱讀", href: "/posts" },
+            { label: "關於這裡", href: "/about" },
+          ]}
         />
 
         <CtaBlock

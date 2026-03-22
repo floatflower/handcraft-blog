@@ -1,14 +1,25 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
-import Link from "next/link";
-import { PostPagination } from "@/components/post-pagination";
 import { postLoader } from "@/server/post-loader";
-import { get } from "lodash";
 import dayjs from "dayjs";
+import { TagPostsList } from "./_components/tag-posts-list";
+import { PostListEditorial } from "./_components/post-list-editorial";
+import { PostListRow } from "./_components/post-list-row";
 
 const PAGE_SIZE = 12;
 
 type Params = Promise<{ slug: string; page: string }>;
+
+const getTemplate = (type: string) => {
+  switch (type) {
+    case "食譜":
+      return PostListEditorial;
+    case "炒飯":
+      return PostListRow;
+    default:
+      return TagPostsList;
+  }
+};
 
 export function generateStaticParams() {
   const posts = postLoader();
@@ -25,9 +36,10 @@ export function generateStaticParams() {
   for (const [slug, count] of tagCounts) {
     const totalPages = Math.ceil(count / PAGE_SIZE);
     for (let p = 1; p <= totalPages; p++) {
-      params.push({ slug, page: String(p) });
+      params.push({ slug: encodeURIComponent(slug), page: String(p) });
     }
   }
+
   return params;
 }
 
@@ -67,57 +79,17 @@ export default async function Page({ params }: { params: Params }) {
     currentPage * PAGE_SIZE,
   );
 
+  const Template = getTemplate(slug);
+
   return (
-    <div className="max-w-4xl mx-auto px-4 py-12">
-      <h1 className="text-2xl font-bold mb-1">#{slug}</h1>
-      <p className="text-sm text-muted-foreground mb-8">
-        {allPosts.length} 篇文章
-      </p>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {posts.map((post) => {
-          const meta = post.metadata;
-          const coverUrl = get(meta, "coverImage.url");
-          const coverAlt = get(meta, "coverImage.alt", meta.title ?? "");
-          return (
-            <Link
-              key={post.slug}
-              href={`/posts/${post.slug}`}
-              className="group flex flex-col rounded-2xl overflow-hidden border border-border hover:border-foreground/20 transition-colors"
-            >
-              <div className="aspect-video w-full overflow-hidden bg-muted">
-                {coverUrl ? (
-                  <img
-                    src={coverUrl}
-                    alt={coverAlt}
-                    className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                  />
-                ) : (
-                  <div className="w-full h-full" />
-                )}
-              </div>
-              <div className="flex flex-col gap-1.5 p-4">
-                {meta.title && (
-                  <p className="font-semibold leading-snug line-clamp-2">
-                    {meta.title}
-                  </p>
-                )}
-                {meta.excerpt && (
-                  <p className="text-sm text-muted-foreground line-clamp-2">
-                    {meta.excerpt}
-                  </p>
-                )}
-              </div>
-            </Link>
-          );
-        })}
-      </div>
-
-      <PostPagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        buildHref={(p) => `/tags/${slug}/${p}`}
-      />
-    </div>
+    <Template
+      {...{
+        tag: slug,
+        posts,
+        totalCount: allPosts.length,
+        currentPage,
+        totalPages,
+      }}
+    />
   );
 }

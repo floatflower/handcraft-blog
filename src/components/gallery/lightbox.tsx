@@ -2,7 +2,6 @@
 
 import type React from "react";
 import Lightbox from "yet-another-react-lightbox";
-import Captions from "yet-another-react-lightbox/plugins/captions";
 import Fullscreen from "yet-another-react-lightbox/plugins/fullscreen";
 import Thumbnails from "yet-another-react-lightbox/plugins/thumbnails";
 import Zoom from "yet-another-react-lightbox/plugins/zoom";
@@ -35,7 +34,7 @@ export function GalleryLightbox({
       close={onClose}
       index={index}
       slides={slides}
-      plugins={[Captions, Fullscreen, Thumbnails, Zoom]}
+      plugins={[Fullscreen, Thumbnails, Zoom]}
       thumbnails={{ position: "bottom", width: 64, height: 64, gap: 8 }}
       styles={{
         // @ts-ignore
